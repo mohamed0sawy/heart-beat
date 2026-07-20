@@ -246,6 +246,9 @@
     await typeText(finalLine1, 'من يوم ما دخلتي حياتي...', 60);
     await wait(1000);
     await typeText(finalLine2, 'بقيتي أقرب حاجة لقلبي', 60);
+    await wait(1000);
+    await typeText(finalLine2, 'وأتمنى يفضل كده... العمر كله.', 60);
+  }
   }
 
   /* ============================================================
