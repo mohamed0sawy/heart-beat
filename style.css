@@ -127,10 +127,30 @@ body{
   left:50%;
   bottom:15%;
   transform:translateX(-50%);
-  width:min(88vw, 560px);
+  width:min(88vw,560px);
   text-align:center;
   z-index:20;
   pointer-events:none;
+}
+
+#narration::before{
+  content:"";
+  position:absolute;
+  left:-30px;
+  right:-30px;
+  bottom:-35vw;
+  top:-110vw;
+
+  background:linear-gradient(
+          to top,
+          rgba(0,0,0,.1),
+          rgba(0,0,0,.60),
+          rgba(0,0,0,.15),
+          transparent
+  );
+
+  border-radius:40px;
+  z-index:-1;
 }
 #narration-text{
   font-family:'Amiri', serif;
@@ -180,7 +200,7 @@ body{
 #heart-wrap.visible{ opacity:1; }
 
 #heart-img{
-  width:clamp(120px, 24vw, 190px);
+  width:clamp(160px, 24vw, 190px);
   height:auto;
   display:block;
   margin:0 auto;
