@@ -14,7 +14,7 @@
      (0,0) = top-left of the photo, (1,1) = bottom-right.
      This was measured directly on the source image: it sits on
      his chest/sternum. */
-  const FOCAL = { x: 0.68, y: 0.37 };
+  const FOCAL = { x: 0.65, y: 0.37 };
 
   const BEAT_DURATION = 1300; // ms between heartbeats — slow & gentle
   const NAME_LETTERS  = ['م', 'مر', 'مري', 'مريم'];
@@ -42,6 +42,7 @@
   const heartName        = document.getElementById('heart-name');
   const finalLine1       = document.getElementById('final-line-1');
   const finalLine2       = document.getElementById('final-line-2');
+  const finalLine3       = document.getElementById('final-line-3');
 
   /* ---------- tiny helpers ---------- */
   const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -247,8 +248,7 @@
     await wait(1000);
     await typeText(finalLine2, 'بقيتي أقرب حاجة لقلبي', 60);
     await wait(1000);
-    await typeText(finalLine2, 'وأتمنى يفضل كده... العمر كله.', 60);
-  }
+    await typeText(finalLine3, 'وأتمنى يفضل كده... العمر كله.', 60);
   }
 
   /* ============================================================
