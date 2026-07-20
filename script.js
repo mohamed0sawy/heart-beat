@@ -194,7 +194,7 @@
       if (text !== '') {
         requestAnimationFrame(() => el.classList.add('visible'));
       }
-    }, 350);
+    }, 260);
   }
 
   function applyNameBeat(idx) {
