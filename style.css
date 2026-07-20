@@ -1,0 +1,253 @@
+/* ============================================================
+   سر صغير — cinematic reveal
+   Palette: near-black curtain, warm ivory, warm red, light gold
+   ============================================================ */
+
+:root{
+  --ink:        #05040a08 ; /* placeholder overwritten below, kept for reference */
+}
+
+:root{
+  --black:      #070502;
+  --ivory:      #f4ead8;
+  --ivory-dim:  #cdbfa6;
+  --gold:       #d9b46a;
+  --gold-soft:  #f0d9a3;
+  --ember:      #ff9d52;
+  --ember-deep: #c65a2e;
+
+  /* focal point on the photograph — updated live by script.js
+     to always track the same physical spot on the subject
+     regardless of viewport shape (object-fit: cover math) */
+  --ox: 69%;
+  --oy: 47%;
+
+  --ease: cubic-bezier(.22,.61,.18,1);
+}
+
+*{ margin:0; padding:0; box-sizing:border-box; }
+
+html, body{
+  width:100%; height:100%;
+  background:var(--black);
+  overflow:hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body{
+  font-family:'Tajawal', sans-serif;
+  color:var(--ivory);
+}
+
+#stage{
+  position:fixed;
+  inset:0;
+  width:100vw;
+  height:100dvh;
+  overflow:hidden;
+  background:var(--black);
+  cursor:pointer;
+  outline:none;
+}
+
+/* ---------- opening curtain ---------- */
+#curtain{
+  position:absolute; inset:0;
+  background:var(--black);
+  z-index:50;
+  opacity:1;
+  transition:opacity 1.6s var(--ease);
+  pointer-events:none;
+}
+#curtain.lifted{ opacity:0; }
+
+/* ---------- the photograph ---------- */
+#photo-frame{
+  position:absolute; inset:0;
+  overflow:hidden;
+  background:var(--black);
+}
+#photo{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  object-position:center;
+  transform-origin: var(--ox) var(--oy);
+  transform:scale(1);
+  transition:transform 1.35s var(--ease);
+  will-change:transform;
+  opacity:0;
+  transition-property: transform, opacity;
+  transition-duration: 1.35s, 1.8s;
+  transition-timing-function: var(--ease), ease-in;
+}
+#photo.visible{ opacity:1; }
+
+/* ---------- flat darkening (early, subtle) ---------- */
+#darken-overlay{
+  position:absolute; inset:0;
+  background:rgba(4,3,2,0.4);
+  opacity:0;
+  transition:opacity 1.2s var(--ease);
+  pointer-events:none;
+}
+
+/* ---------- radial vignette, centered on the chest ---------- */
+#vignette-overlay{
+  position:absolute; inset:0;
+  background:radial-gradient(circle at var(--ox) var(--oy),
+              transparent 0%,
+              transparent 22%,
+              rgba(5,3,2,.55) 55%,
+              rgba(4,2,1,.88) 85%);
+  opacity:0;
+  transition:opacity 1.5s var(--ease);
+  pointer-events:none;
+}
+
+/* ---------- warm glow rising from within the chest ---------- */
+#glow-overlay{
+  position:absolute; inset:0;
+  background:radial-gradient(circle at var(--ox) var(--oy),
+              rgba(255,201,140,.95) 0%,
+              rgba(255,175,110,.55) 6%,
+              rgba(255,140,80,.25) 14%,
+              rgba(255,120,60,.08) 26%,
+              transparent 42%);
+  opacity:0;
+  filter:blur(2px);
+  transition:opacity 1.8s var(--ease);
+  pointer-events:none;
+  mix-blend-mode:screen;
+}
+
+/* ---------- narration text ---------- */
+#narration{
+  position:absolute;
+  left:50%;
+  bottom:15%;
+  transform:translateX(-50%);
+  width:min(88vw, 560px);
+  text-align:center;
+  z-index:20;
+  pointer-events:none;
+}
+#narration-text{
+  font-family:'Amiri', serif;
+  font-size:clamp(21px, 5.2vw, 30px);
+  line-height:2.6;
+  color:var(--ivory);
+  text-shadow:0 2px 18px rgba(0,0,0,.7), 0 0 40px rgba(0,0,0,.4);
+  opacity:0;
+  transition:opacity 1s var(--ease);
+  min-height:1.6em;
+}
+#narration-text.visible{ opacity:1; }
+
+#tap-hint{
+  margin-top:14px;
+  font-family:'Tajawal', sans-serif;
+  font-weight:300;
+  font-size:clamp(13px, 3.4vw, 16px);
+  letter-spacing:.03em;
+  color:var(--gold-soft);
+  opacity:0;
+  transition:opacity 1.2s var(--ease);
+  animation:breathe 2.6s ease-in-out infinite;
+  animation-play-state:paused;
+}
+#tap-hint.visible{
+  opacity:.85;
+  animation-play-state:running;
+}
+@keyframes breathe{
+  0%,100%{ opacity:.55; }
+  50%{ opacity:1; }
+}
+
+/* ---------- the heart ---------- */
+#heart-wrap{
+  position:absolute;
+  left:var(--ox);
+  top:var(--oy);
+  transform:translate(-50%,-50%);
+  z-index:15;
+  opacity:0;
+  transition:opacity 2.2s ease-in;
+  pointer-events:none;
+  text-align:center;
+}
+#heart-wrap.visible{ opacity:1; }
+
+#heart-img{
+  width:clamp(120px, 24vw, 190px);
+  height:auto;
+  display:block;
+  margin:0 auto;
+  filter:
+    drop-shadow(0 0 18px rgba(255,170,100,.8))
+    drop-shadow(0 0 40px rgba(255,120,60,.45));
+  transform-origin:50% 60%;
+}
+
+#heart-name{
+  margin-top:10px;
+  font-family:'Amiri', serif;
+  font-weight:700;
+  font-style:italic;
+  font-size:clamp(20px, 5.4vw, 30px);
+  color:var(--gold-soft);
+  text-shadow:
+    0 0 14px rgba(255,190,120,.85),
+    0 0 30px rgba(255,150,80,.5);
+  opacity:0;
+  transition:opacity .65s ease;
+  min-height:1.3em;
+  letter-spacing:.02em;
+}
+#heart-name.visible{ opacity:1; }
+
+/* ---------- final message ---------- */
+#final-message{
+  position:absolute;
+  left:50%;
+  top:calc(var(--oy) + 20%);
+  transform:translateX(-50%);
+  width:min(86vw, 520px);
+  text-align:center;
+  z-index:20;
+  pointer-events:none;
+}
+#final-message p{
+  font-family:'Amiri', serif;
+  font-size:clamp(25px, 5vw, 27px);
+  line-height:1.75;
+  color:var(--ivory);
+  text-shadow:0 2px 16px rgba(0,0,0,.75);
+  min-height:1.2em;
+}
+#final-line-1{ margin-bottom:6px; }
+
+.caret{
+  display:inline-block;
+  width:2px;
+  margin-inline-start:2px;
+  background:var(--gold-soft);
+  animation:blink 1s step-end infinite;
+}
+@keyframes blink{ 50%{ opacity:0; } }
+
+/* ---------- small screens / very short viewports ---------- */
+@media (max-height:560px){
+  #narration{ bottom:8%; }
+  #final-message{ top:calc(var(--oy) + 15%); }
+}
+
+/* ---------- respect reduced motion ---------- */
+@media (prefers-reduced-motion: reduce){
+  #photo, #curtain, #darken-overlay, #vignette-overlay,
+  #glow-overlay, #narration-text, #tap-hint, #heart-wrap, #heart-name{
+    transition-duration:.4s;
+  }
+  #tap-hint{ animation:none; opacity:.85; }
+}

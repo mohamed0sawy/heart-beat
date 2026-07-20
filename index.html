@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>سر صغير</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@200;300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div id="stage" role="button" tabindex="0" aria-label="اضغطي للمتابعة">
+
+    <!-- black curtain for the opening fade -->
+    <div id="curtain"></div>
+
+    <!-- the photograph, zoomed via CSS transform from a fixed focal point -->
+    <div id="photo-frame">
+      <img id="photo" src="assets/photo.jpg" alt="">
+    </div>
+
+    <!-- flat darkening layer (subtle, early taps) -->
+    <div id="darken-overlay"></div>
+
+    <!-- radial vignette centered on the focal point (chest) -->
+    <div id="vignette-overlay"></div>
+
+    <!-- warm inner glow, centered on the focal point -->
+    <div id="glow-overlay"></div>
+
+    <!-- narration text, one line at a time -->
+    <div id="narration">
+      <p id="narration-text"></p>
+      <p id="tap-hint">اضغطي في أي مكان ❤️</p>
+    </div>
+
+    <!-- the heart reveal, anchored to the focal point -->
+    <div id="heart-wrap">
+      <img id="heart-img" src="assets/heart.png" alt="">
+      <div id="heart-name"></div>
+    </div>
+
+    <!-- final typed message, sits beneath the heart -->
+    <div id="final-message">
+      <p id="final-line-1"></p>
+      <p id="final-line-2"></p>
+    </div>
+
+  </div>
+
+<script src="script.js"></script>
+</body>
+</html>
