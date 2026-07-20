@@ -211,22 +211,41 @@ body{
 }
 
 #heart-name{
+  position:relative;
+  z-index:0;
   margin-top:10px;
   font-family:'Amiri', serif;
   font-weight:700;
   font-style:italic;
-  font-size:clamp(20px, 5.4vw, 30px);
-  color:var(--gold-soft);
+  font-size:clamp(26px, 7.2vw, 38px);
+  color:#fbe8bf;
   text-shadow:
-    0 0 14px rgba(255,190,120,.85),
-    0 0 30px rgba(255,150,80,.5);
+    0 0 12px rgba(255,200,140,.9),
+    0 0 26px rgba(255,160,90,.6),
+    0 0 46px rgba(255,130,70,.35);
   opacity:0;
-  transition:opacity .65s ease;
+  transition:opacity .28s ease;
   min-height:1.3em;
-  letter-spacing:.02em;
+  letter-spacing:.03em;
 }
 #heart-name.visible{ opacity:1; }
 
+#heart-name::before{
+  content:'';
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:min(50vw, 190px);
+  height:min(20vw, 80px);
+  transform:translate(-50%,-50%);
+  background:radial-gradient(ellipse at center,
+              rgba(35,18,10,.6) 0%,
+              rgba(30,15,8,.4) 45%,
+              transparent 75%);
+  filter:blur(8px);
+  z-index:-1;
+  pointer-events:none;
+}
 /* ---------- final message ---------- */
 #final-message{
   position:absolute;
